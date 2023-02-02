@@ -1,16 +1,10 @@
-function get_iframe(ifr_id) {
- // gets the object that refers to the iframe, uasing its id
- var myIFrame = document.getElementById(ifr_id);
-
- // Apply the property "contentWindow" to myIFrame object
- // In this way we get the iframe content
- var content = myIFrame.contentWindow;
- content.eval('document.querySelector(".logotext").innerHTML="hello"'); 
-// alert("Content: \n" + content); // Displays an Alert with the data from iframe
- 
- // Define a new text that will replace the content of the iframe
- //content = '<font color="blue">Text added with Javascript, from the main page</font>';
-
- // Modify the iframe content
- //myIFrame.contentWindow.document.body.innerHTML = content;
-}
+function myFunction() {
+    var iframe = document.getElementById("ifr");
+    var elmnt = iframe.contentWindow//.document.body;
+    //alert(document.getElementById('execCode').value)
+    try{
+    elmnt.eval(document.getElementById('execCode').value)
+  }catch(e){
+      alert(e)
+  }
+  }
