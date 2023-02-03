@@ -1,16 +1,7 @@
 var iframe = document.getElementById("ifr");
 var elmnt = iframe.contentWindow//.document.body;
-
-function myFunction() {
-    var iframe = document.getElementById("ifr");
-    var elmnt = iframe.contentWindow//.document.body;
-    //alert(document.getElementById('execCode').value)
-    try{
-    elmnt.eval(document.getElementById('execCode').value)
-  }catch(e){
-      alert(e)
-  }
-  }
+var historyVar  = [];
+var historyNum = 0;
 
   //console
   const consoleInput = document.querySelector(".console-input");
@@ -40,12 +31,47 @@ consoleInput.addEventListener("keyup", (e) => {
 
   if (e.key === "Enter") {
     try {
+      historyVar.push(code);
+      historyNum++;
+      //alert(historyVar)
       addResult(code, elmnt.eval(code));
+      
     } catch (err) {
       addResult(code, err);
     }
 
     consoleInput.value = "";
+    historyContainer.scrollTop = historyContainer.scrollHeight;
+  }
+});
+
+consoleInput.addEventListener("keyup", (e) => {
+
+  //console.log(e.key)
+
+
+  if (e.key == "ArrowUp" & historyNum>0) {
+    //alert('ready')
+    consoleInput.value = historyVar[parseInt(historyNum)-1]
+    historyNum--;
+    //consoleInput.value = "";
+    historyContainer.scrollTop = historyContainer.scrollHeight;
+  }
+});
+
+consoleInput.addEventListener("keyup", (e) => {
+
+  //console.log(e.key)
+
+
+  if (e.key == "ArrowDown") {
+    //alert('ready')
+    if(historyVar[parseInt(historyNum)+1]==undefined){
+      return;
+    }
+    consoleInput.value = historyVar[parseInt(historyNum)+1]
+    historyNum++;
+    //consoleInput.value = "";
     historyContainer.scrollTop = historyContainer.scrollHeight;
   }
 });
